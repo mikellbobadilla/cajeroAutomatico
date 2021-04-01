@@ -41,7 +41,7 @@ onBox(); // es la funcion que hay en total de dinero que hay en el cajero
 
 //cantidad de dinero en el cajero
 function onBox() {
-
+    
 }
 
 
@@ -65,8 +65,9 @@ function reparto() {
         }
 
 
-    }
-
+    } 
+    
+    
     for (let c of caja) {
 
         var v = c.cantidad * c.valor;
@@ -74,10 +75,9 @@ function reparto() {
     }
 
 
-
     //muestra en pantalla los billetes entregados
     if (dinero > 0) {
-        r.innerHTML = "i'm Sorry, i can't give u this money :(";
+        r.innerHTML = `i'm Sorry, i don't have $${t.value} dollars :(`;
     } else {
         for (var e of entregado) {
             if (e.cantidad > 0) {
@@ -87,4 +87,6 @@ function reparto() {
             }
         }
     }
+
+    onBox();
 }
