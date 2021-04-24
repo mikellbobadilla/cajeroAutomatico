@@ -8,10 +8,7 @@ class Wallet {
 }
 
 let box = [];
-let delivered = [];
-let money = 0;
 let wallt = [];  // source of money
-let paper;
 
 // Dictionary's
 wallt[5] = 'billete_de_5.jpg';
@@ -30,10 +27,57 @@ box.push(new Wallet(5,10));
 // show you how many are there in the ATM
 const shw = document.getElementById('show');
 shw.addEventListener('click', ()=>{
-    for (let c of box){
-        let v = c.value * c.amount;
-        let l = document.getElementById('look');
-        l.innerHTML += `<br> hay $${v} dolares en Billetes de $${c.value}`;
+    shw.hidden = true;
+    if (shw.hidden == true){
+        for (let c of box){
+            let v = c.value * c.amount;
+            let l = document.getElementById('look');
+            l.innerHTML += `<br> hay $${v} dolares en Billetes de $${c.value}`;
+        }
     }
+        
+        console.log(shw);
+});
+
+const bt = document.getElementById('btn');
+bt.addEventListener('click', ()=>{
+    let number = document.getElementById('num');
+    let money = parseInt(number.value);
+    let paper = 0;
+    let div = 0;
+    let delivered = [];
+
+    
+    for(b of box){
+        if (money > 0){
+            div = Math.floor(money / b.value);
+            if (div > b.amount){
+                paper = b.amount;
+            }
+            else{
+                paper = div;
+            }
+            delivered.push(new Wallet(b.value, paper));
+            money = money - (b.value * paper);
+    
+        }
+
+    }
+    let res = document.getElementById('res');
+    console.log(delivered);
+    // show the money
+    if (money > 0){
+        res.innerHTML = `Los siento no tengo $${number.value}`;
+    }
+    else{
+        for (e of delivered){
+            if (e.amount > 0){  
+                res.innerHTML +=`${e.amount}Billetes de ${e.value}<br/>`;
+                res.appendChild(e.image);
+                res.innerHTML += `<br/>`
+            }
+        }
+    }
+    console.log(delivered);
 })
 
